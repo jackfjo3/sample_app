@@ -17,7 +17,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 		assert flash.empty? # Verify flash message doesn't appear
 	end
 
-	test 'login with valid info' do
+	test 'login with valid info followed by logout' do
 		get login_path # visit login path
 		post login_path, session: { email: @user.email, password: 'password' } # post valid info to the login path
 		assert is_logged_in?
@@ -31,6 +31,8 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 		delete logout_path
 		assert_not is_logged_in?
 		assert_redirected_to root_url
+		# Simulate a user clicking logout in a second window
+		delete logout_path # should raise error due to missing current_user
 		follow_redirect!
 		assert_select "a[href=?]", login_path
 		assert_select "a[href=?]", logout_path,				count: 0
