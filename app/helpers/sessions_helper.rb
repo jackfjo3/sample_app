@@ -49,4 +49,15 @@ module SessionsHelper
 		session.delete(:user_id)
 		@current_user = nil
 	end
+
+	# Redirects to stored location (or to default)
+	def redirect_back_or(default)
+		redirect_to(session[:forwarding_url] || default)
+		session.delete(:forwarding_url)
+	end
+
+	# Stores the URL trying to be accessed
+	def store_location
+		session[:forwarding_url] = request.url if request.get?  #  prevents storing the forwarding URL if a user, say, submits a form when not logged in (which is an edge case but could happen if, e.g., a user deleted the session cookies by hand before submitting the form)
+	end
 end

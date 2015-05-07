@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   	if user && user.authenticate(params[:session][:password])
   		log_in user # Log the user in and redirect to the user's showpage
   		params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-  		redirect_to user # same as user_url(user)
+  		redirect_back_or user
   	else
   		# Show error message
   		flash.now[:danger] = 'Wrong email or password' 
