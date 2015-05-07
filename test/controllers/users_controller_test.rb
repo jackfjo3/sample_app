@@ -9,7 +9,7 @@ class UsersControllerTest < ActionController::TestCase
 
  	test "should redirect index when not logged in" do
  		get :index
- 		asser_redirected_to login_url
+ 		assert_redirected_to login_url
  	end
 
 
