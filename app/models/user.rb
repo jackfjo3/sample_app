@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
                     uniqueness: {case_sensitive: false}
                     
   has_secure_password
-  validates :password, length: {minimum: 6}
+  validates :password, length: {minimum: 6}, allow_blank: true # has_secure_password enforces presence validations upon object creation
 
   # Returns the hash digest of the given string. Used to make hashed password of user in fixture model for login integration testing                                                        
   def User.digest(string)
