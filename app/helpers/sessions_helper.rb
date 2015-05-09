@@ -53,7 +53,7 @@ module SessionsHelper
 	# Redirects to stored location (or to default)
 	def redirect_back_or(default)
 		redirect_to(session[:forwarding_url] || default)
-		#session.delete(:forwarding_url)
+		session.delete(:forwarding_url)
 	end
 
 	# Stores the URL trying to be accessed

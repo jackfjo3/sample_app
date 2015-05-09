@@ -21,17 +21,19 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		get edit_user_path(@user)
     log_in_as(@user)
     assert_redirected_to edit_user_path(@user)
-		patch user_path(@user), user: 	{ name: "name",
-																			email: "email",
-																			password: 		 					"",			
-																			password_confirmation: 	""	}
+    name = "test name"
+    email = "test@email.com"
+		patch user_path(@user), user: 	{ name: name,
+																			email: email,
+																			password: 		 					"password",			
+																			password_confirmation: 	"password"	}
 		assert_not flash.empty?
 		assert_redirected_to @user
 		@user.reload
-		assert_equal @user.name, "name"
-		assert_equal @user.email, "email"
+		assert_equal @user.name, name
+		assert_equal @user.email, email
 		# To ensure subsequent logins bring up user page and not edit page
-		log out
+		log_out # added include SessionsHelper to test_helpter to enable this function
 		log_in_as(@user)
 		assert_redirected_to @user
 	end
