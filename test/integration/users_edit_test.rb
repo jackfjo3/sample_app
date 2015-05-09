@@ -33,7 +33,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		# To ensure subsequent logins bring up user page and not edit page
 		log out
 		log_in_as(@user)
-		assert_redirected_to user_path(@user)
+		assert_redirected_to @user
 	end
 
 
