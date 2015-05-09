@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class SiteLayoutTest < ActionDispatch::IntegrationTest
+  
+  # Tab doing 4 spaces, don't know why so indenting is spaces and tabs don't know if that matters May 8 2015
+
+  def setup
+    @user = users(:jack)
+  end
+
   test 'layout links' do
     get root_path
     assert_template 'static_pages/home'
@@ -11,5 +18,15 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     
     get signup_path
     assert_select "title", full_title("Sign Up")
+
+    # Logged in links
+    log_in_as(@user)
+    get root_path #neccessary?
+    assert_template 'static_pages/home'
+    assert_select 'a[href=?]', users_path
+    assert_select 'a[href=?]', user_path(@user)
+    assert_select 'a[href=?]', edit_user_path(@user)
+    assert_select 'a[href=?]', logout_path
+
   end
 end

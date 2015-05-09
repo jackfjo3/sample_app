@@ -30,6 +30,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		@user.reload
 		assert_equal @user.name, "name"
 		assert_equal @user.email, "email"
+		# To ensure subsequent logins bring up user page and not edit page
+		log out
+		log_in_as(@user)
+		assert_redirected_to user_path(@user)
 	end
 
 
