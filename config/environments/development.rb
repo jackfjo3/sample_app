@@ -13,8 +13,11 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  #  care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = {host: host}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -32,8 +35,8 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
+  # Checks fo sprockets dependencies.
+  # Raises helpful error messagesr improperly declared.
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
